@@ -1,0 +1,9 @@
+.nav-pills .nav-link.active {
+    background-color: #A5A58D;
+  }
+.coolfärg{
+    background-color: #6B705C;
+}
+.skugga{
+  text-shadow: 2px 2px 4px black;
+}
