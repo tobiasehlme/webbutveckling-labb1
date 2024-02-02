@@ -10,3 +10,11 @@
 .skugga{
     text-shadow: 2px 2px 4px black;
 }
+.flex-column{
+    width: 150px;
+}
+.bg-ash{
+    background-color: #B7B7A4;
+    box-shadow: 2px 2px 15px black;
+    border-radius: 25px;
+}

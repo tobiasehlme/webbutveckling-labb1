@@ -7,3 +7,34 @@
 .skugga{
   text-shadow: 2px 2px 4px black;
 }
+ul{
+  list-style: none;
+}
+.bg-ash{
+  background-color: #B7B7A4;
+  box-shadow: 2px 2px 15px black;
+}
+.about-prop{
+  width: 500px;
+  border-radius: 25px;
+}
+.contact-prop{
+  width: 300px;
+  border-radius: 25px;
+}
+.mapblock-prop{
+  width: 425px;
+  height: 310px;
+  border-radius: 25px;
+}
+.map-prop{
+  border-radius: 25px;
+}
+
+.logo{
+  height: 125px;
+  width: 125px;
+}
+.flex-column{
+  width: 150px;
+}
