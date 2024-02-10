@@ -1,9 +1,40 @@
 .nav-pills .nav-link.active {
     background-color: #A5A58D;
+    box-shadow: 1px 1px 10px black;
   }
 .coolfärg{
     background-color: #6B705C;
 }
 .skugga{
     text-shadow: 2px 2px 4px black;
+}
+.flex-column{
+    width: 150px;
+}
+.logo{
+    height: 125px;
+    width: 130px;
+}
+
+.bg-ash{
+    background-color: #B7B7A4;
+    box-shadow: 2px 2px 15px black;
+}
+.cart-block-prop{
+    width: 300px;
+    height: auto;
+    border-radius: 25px;
+}
+.product-card{
+    width: 15rem;
+    background-color: #B7B7A4;
+    box-shadow: 2px 2px 15px black;
+}
+.btn-primary{
+    background-color: #A5A58D;
+    border-color: transparent;
+    box-shadow: 2px 2px 15px black;
+}
+.btn-primary:hover{
+    background-color: #B7B7A4;
 }

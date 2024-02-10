@@ -1,6 +1,7 @@
 .nav-pills .nav-link.active {
     background-color: #A5A58D;
-  }
+    box-shadow: 1px 1px 10px black;
+}
 .coolfärg{
     background-color: #6B705C;
 }
@@ -33,7 +34,7 @@ ul{
 
 .logo{
   height: 125px;
-  width: 125px;
+  width: 130px;
 }
 .flex-column{
   width: 150px;
