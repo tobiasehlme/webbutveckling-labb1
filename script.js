@@ -1,35 +1,107 @@
 const cart = document.getElementsByClassName("cart")[0]
 const cartArr = [];
-const itemsArr = ["surdegsbröd", "kremla", "kålltorpsfralla", "kanelbullar"]
+badQuotes();
+
+
+class Pastry{
+    constructor(name, description, price, ingredient, img){
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.ingredient = ingredient
+        this.img = img
+    }
+}
+
+async function badQuotes() {
+    const response = await fetch("https://api.breakingbadquotes.xyz/v1/quotes");
+    const quote = await response.json();
+    
+
+    const apiContainer = document.getElementById("api")
+    const api = document.createElement("p")
+    apiContainer.classList.add("text-center", "text-light", "skugga")
+    apiContainer.appendChild(api)
+    api.innerText = `${quote[0].quote} - ${quote[0].author}`
 
 
 
-const buybuttons = document.getElementsByClassName("buy");
-for (const button of buybuttons) {
+    
+}
+
+
+
+const itemsArr = [
+    new Pastry("Lilla Sur Orginal", "Vårt egna surdegsbröd", 20, ["Vetemjöl"], "./assets/lillasurorginal.jpg"),
+    new Pastry("Kremla", "Sveriges godaste kremla", 20, ["Vetemjöl", "Mjölk", "Mandel"], "./assets/kremla.jpg"),
+    new Pastry("Kålltorpsfralla", "Gbgs bästa kålltorpsfralla", 20, ["Vetemjöl", "Vallmofrö"], "./assets/kålltorpsfralla.jpg"),
+    new Pastry("Kanelbullar", "Vårt take på kanelbullar", 15, ["Vetemjöl", "Mjölk", "Ägg"], "./assets/kanelbulle")
+]
+
+const buyButtons = document.getElementsByClassName("buy");
+for (const button of buyButtons) {
     button.addEventListener("click", ()=>{
         let bread = button.parentElement;
         bread = bread.innerText
         for (const item of itemsArr) {
-            if(bread.includes(item)){
-                if (cartArr.includes(item)) {
-                    const breadElement = document.getElementById(item)
-                    const splitted = breadElement.innerText.split(" ")
-                    let num = splitted[0]
-                    let incrnum = parseInt(num) + 1
-                    breadElement.innerText = incrnum + "x" + " " + splitted[1]
+            if(bread.includes(item.description)){
+                if (cartArr.includes(item.name)) {
+                    const breadElement = document.getElementById(item.name)
+                    const badgeElement = breadElement.lastChild
+                    let num = parseInt(badgeElement.innerText)
+                    num += 1
+                    badgeElement.innerText = num;
+                    console.log(badgeElement)
                     return
                 }
                 const li = document.createElement("li")
-                const htmlItem = document.createElement("p")
-                htmlItem.innerText = "1x " + item
-                htmlItem.id = item
-                li.appendChild(htmlItem)
+                const badge = document.createElement("span")
+                badge.classList.add("badge", "bg-primary", "rounded-pill")
+                badge.innerText = 1;
+                li.innerText = item.name
+                li.id = item.name
+                li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center")
+                li.appendChild(badge)
                 cart.appendChild(li)
-                cartArr.push(item)
+                cartArr.push(item.name)
+                badQuotes();
             }
         }
     })
 }
+
+
+
+
+
+const infoButtons = document.getElementsByClassName("info");
+const infoModal = new bootstrap.Modal("#modalModel")
+const modalTitle = document.getElementsByClassName("modal-title")[0]
+const modalBody = document.getElementsByClassName("modal-body")[0]
+
+for (const button of infoButtons) {
+    button.addEventListener("click", ()=>{
+        let bread = button.parentElement;
+        bread = bread.innerText;
+        for (const item of itemsArr) {
+            if(bread.includes(item.description)){
+                modalTitle.innerText = item.name
+            for (const ingredient of item.ingredient) {
+                modalBody.innerText += `${ingredient}, `
+            }
+            infoModal.show();
+            }
+            
+        }
+        
+        
+    })
+    modalBody.innerText = "";
+    
+}
+
+
+
 
 // buy.addEventListener("click", ()=>{
 
