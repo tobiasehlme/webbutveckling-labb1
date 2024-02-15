@@ -1,5 +1,5 @@
 const cart = document.getElementsByClassName("cart")[0]
-const cartArr = [];
+let cartArr = [];
 badQuotes();
 
 
@@ -39,6 +39,7 @@ const itemsArr = [
 ]
 
 const buyButtons = document.getElementsByClassName("buy");
+
 for (const button of buyButtons) {
     button.addEventListener("click", ()=>{
         let bread = button.parentElement;
@@ -46,30 +47,78 @@ for (const button of buyButtons) {
         for (const item of itemsArr) {
             if(bread.includes(item.description)){
                 if (cartArr.includes(item.name)) {
-                    const breadElement = document.getElementById(item.name)
-                    const badgeElement = breadElement.lastChild
-                    let num = parseInt(badgeElement.innerText)
-                    num += 1
-                    badgeElement.innerText = num;
-                    console.log(badgeElement)
+                    const badgeElement = document.getElementById(`${item.name}-badge`)
+                    badgeNumb = parseInt(badgeElement.innerText)
+                    badgeNumb += 1
+                    badgeElement.innerText = badgeNumb
                     return
                 }
                 const li = document.createElement("li")
                 const badge = document.createElement("span")
+                const removeButton = document.createElement("button")
+                removeButton.classList.add("remove")
+                removeButton.id = `${item.name}-remove`
                 badge.classList.add("badge", "bg-primary", "rounded-pill")
                 badge.innerText = 1;
+                badge.id = `${item.name}-badge`
                 li.innerText = item.name
                 li.id = item.name
-                li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center")
+                li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center", "text-light")
                 li.appendChild(badge)
+                li.appendChild(removeButton)
                 cart.appendChild(li)
                 cartArr.push(item.name)
-                badQuotes();
             }
         }
+       
     })
 }
 
+// function checkRemove() {
+//     const removeButtons = document.getElementsByClassName("remove")
+//     for (const button of removeButtons) {
+//         button.addEventListener("click", ()=>{
+//             const badge = document.getElementById(`${item.name}-badge`)
+//             if (parseInt(badge.innerText) == 1) {
+//                 const product = document.getElementById(`${item.name}`)
+//                 cart.removeChild(product)
+//                 cartArr = cartArr.filter((p)=>p != `${item.name}`)
+//                 return
+//             } 
+//             else {
+//                 console.log(badge)
+//                 badgeNumb = parseInt(badge.innerText)
+//                 badgeNumb -= 1
+//                 badge.innerText = badgeNumb
+//                 return
+//             }
+//         })
+//     }
+// }
+
+function checkRemove() {
+    for (const item of itemsArr) {
+        const removeButton = document.getElementById(`${item.name}-remove`)
+        if (removeButton != null){
+            removeButton.addEventListener("click", ()=>{
+                const badge = document.getElementById(`${item.name}-badge`)
+                if (parseInt(badge.innerText) == 1) {
+                    const product = document.getElementById(`${item.name}`)
+                    cart.removeChild(product)
+                    cartArr = cartArr.filter((p)=>p != `${item.name}`)
+                    return
+                } 
+                else {
+                    console.log(badge)
+                    badgeNumb = parseInt(badge.innerText)
+                    badgeNumb -= 1
+                    badge.innerText = badgeNumb
+                    return
+                }
+            })
+        }
+    }
+}
 
 
 

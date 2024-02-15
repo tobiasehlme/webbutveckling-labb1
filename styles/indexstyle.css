@@ -19,3 +19,19 @@
     box-shadow: 2px 2px 15px black;
     border-radius: 25px;
 }
+
+.young-serif-regular {
+    font-family: "Young Serif", serif;
+    font-weight: 100;
+    font-style: normal;
+    font-size: medium;
+    color: white;
+}
+
+.sofia-sans{
+    font-family: "Sofia Sans Condensed", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 350;
+    font-style: normal;
+    font-size: 20px;
+  }

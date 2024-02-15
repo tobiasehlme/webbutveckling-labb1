@@ -38,3 +38,18 @@
 .btn-primary:hover{
     background-color: #B7B7A4;
 }
+.remove{
+    background-image: url(../assets/remove.png);
+    background-size: cover;
+    background-color: transparent;
+    height: 15px;
+    width: 15px;
+    border: none;
+}
+.list-group-item{
+    background-color: #B7B7A4;
+    border-color: transparent;
+}
+.cart{
+    border-radius: 25px;
+}
