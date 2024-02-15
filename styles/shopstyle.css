@@ -53,3 +53,6 @@
 .cart{
     border-radius: 25px;
 }
+.overlay{
+    position: absolute;
+}

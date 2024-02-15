@@ -68,56 +68,31 @@ for (const button of buyButtons) {
                 li.appendChild(removeButton)
                 cart.appendChild(li)
                 cartArr.push(item.name)
+                Remove(removeButton.id)
             }
         }
        
     })
 }
 
-// function checkRemove() {
-//     const removeButtons = document.getElementsByClassName("remove")
-//     for (const button of removeButtons) {
-//         button.addEventListener("click", ()=>{
-//             const badge = document.getElementById(`${item.name}-badge`)
-//             if (parseInt(badge.innerText) == 1) {
-//                 const product = document.getElementById(`${item.name}`)
-//                 cart.removeChild(product)
-//                 cartArr = cartArr.filter((p)=>p != `${item.name}`)
-//                 return
-//             } 
-//             else {
-//                 console.log(badge)
-//                 badgeNumb = parseInt(badge.innerText)
-//                 badgeNumb -= 1
-//                 badge.innerText = badgeNumb
-//                 return
-//             }
-//         })
-//     }
-// }
 
-function checkRemove() {
-    for (const item of itemsArr) {
-        const removeButton = document.getElementById(`${item.name}-remove`)
-        if (removeButton != null){
-            removeButton.addEventListener("click", ()=>{
-                const badge = document.getElementById(`${item.name}-badge`)
-                if (parseInt(badge.innerText) == 1) {
-                    const product = document.getElementById(`${item.name}`)
-                    cart.removeChild(product)
-                    cartArr = cartArr.filter((p)=>p != `${item.name}`)
-                    return
-                } 
-                else {
-                    console.log(badge)
-                    badgeNumb = parseInt(badge.innerText)
-                    badgeNumb -= 1
-                    badge.innerText = badgeNumb
-                    return
-                }
-            })
+function Remove(id) {
+    const removeButton = document.getElementById(id)
+    removeButton.addEventListener("click", ()=>{
+        const badge = removeButton.previousSibling
+        const item = removeButton.parentElement
+        if (parseInt(badge.innerText) == 1) {
+            cart.removeChild(item)
+            cartArr = cartArr.filter((p)=>p != item.id)
+            return
         }
-    }
+        else{
+            badgeNumb = parseInt(badge.innerText)
+            badgeNumb -= 1
+            badge.innerText = badgeNumb
+            return
+        }
+    })
 }
 
 
@@ -136,7 +111,8 @@ for (const button of infoButtons) {
             if(bread.includes(item.description)){
                 modalTitle.innerText = item.name
             for (const ingredient of item.ingredient) {
-                modalBody.innerText += `${ingredient}, `
+                modalBody.innerHTML += `<p>${ingredient} <br></p>`
+                
             }
             infoModal.show();
             }
@@ -145,7 +121,10 @@ for (const button of infoButtons) {
         
         
     })
-    modalBody.innerText = "";
+    const modalButton = document.getElementById("modal-button")
+    modalButton.addEventListener("click", ()=>{
+        modalBody.innerText = "";
+    })
     
 }
 

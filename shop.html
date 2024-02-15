@@ -31,16 +31,15 @@
                 <div class="col-6 text-center mb-5"> 
                     <img class="logo" src="./assets/logocropped.png" alt="">
                 </div>
-                <div class="col-3 text-center text-light skugga">
-                    <div class="d-inline-block align-end bg-ash cart-block-prop">
+                <div class="col-3 text-center text-light skugga d-flex justify-content-end position-absolute top-10 end-0">
+                    <div class="d-inline-block bg-ash cart-block-prop">
                         <p>---Cart!---</p>
                         <ul class="cart list-group-flush list-group">
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="row text-center text-light skugga">
-                <div class="col-2"></div>
+            <div class="row text-center text-light skugga d-flex justify-content-center">
                 <div class="col-2">
                     <div class="card product-card text-light">
                         <div class="card-header">Lilla Sur Orginal</div>
@@ -94,10 +93,10 @@
                         <h5 class="modal-title">Produkt namn</h5>
                     </div>
                     <div class="modal-body">
-                        <p>ingredienser</p>
+                        <p></p>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary text-light skugga" data-bs-dismiss="modal">Aamän</button>
+                        <button class="btn btn-primary text-light skugga" id="modal-button" data-bs-dismiss="modal">Aamän</button>
                     </div>
                 </div>
             </div>
@@ -106,7 +105,7 @@
     <footer class="footer fixed-bottom">
         <div class="container-fluid p-4">
             <div class="row">
-                <div class="col-3" id="api"></div>
+                <div class="col-3 visually-hidden" id="api"></div>
                 <div class="col-6"></div>
                 <div class="col-3" id="socials"></div>
             </div>
