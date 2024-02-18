@@ -4,7 +4,6 @@ const shoppingCart = document.getElementById("shopping-cart")
 const canvasBody = document.getElementsByClassName("offcanvas-body")[0]
 badQuotes();
 
-
 class Pastry{
     constructor(name, description, price, ingredient, img){
         this.name = name;
@@ -14,6 +13,17 @@ class Pastry{
         this.img = img
     }
 }
+
+const itemsArr = [
+    new Pastry("Lilla Sur Orginal", "Vårt egna surdegsbröd", 20, ["Vetemjöl"], "./assets/lillasurorginal.jpg"),
+    new Pastry("Kremla", "Sveriges godaste kremla", 20, ["Vetemjöl", "Mjölk", "Mandel"], "./assets/kremla.jpg"),
+    new Pastry("Kålltorpsfralla", "Gbgs bästa kålltorpsfralla", 20, ["Vetemjöl", "Vallmofrö"], "./assets/kålltorpsfralla.jpg"),
+    new Pastry("Kanelbullar", "Vårt take på kanelbullar", 15, ["Vetemjöl", "Mjölk", "Ägg"], "./assets/kanelbulle.jpg")
+]
+getProducts();
+
+
+
 
 async function badQuotes() {
     const response = await fetch("https://api.breakingbadquotes.xyz/v1/quotes");
@@ -33,12 +43,7 @@ async function badQuotes() {
 
 
 
-const itemsArr = [
-    new Pastry("Lilla Sur Orginal", "Vårt egna surdegsbröd", 20, ["Vetemjöl"], "./assets/lillasurorginal.jpg"),
-    new Pastry("Kremla", "Sveriges godaste kremla", 20, ["Vetemjöl", "Mjölk", "Mandel"], "./assets/kremla.jpg"),
-    new Pastry("Kålltorpsfralla", "Gbgs bästa kålltorpsfralla", 20, ["Vetemjöl", "Vallmofrö"], "./assets/kålltorpsfralla.jpg"),
-    new Pastry("Kanelbullar", "Vårt take på kanelbullar", 15, ["Vetemjöl", "Mjölk", "Ägg"], "./assets/kanelbulle")
-]
+
 
 const buyButtons = document.getElementsByClassName("buy");
 
@@ -70,13 +75,13 @@ for (const button of buyButtons) {
                 badge.id = `${item.name}-badge`
                 li.innerText = item.name
                 li.id = item.name
-                li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center", "text-light")
+                li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-evenly", "text-light", "p-2", "skugga")
                 li.appendChild(badge)
                 li.appendChild(removeButton)
                 cart.appendChild(li)
                 cartArr.push(item.name)
-                canvasBody.removeChild(document.getElementById("tom"))
-                Remove(removeButton.id)
+                
+                RemoveButtonsEvent(removeButton.id);
                 
                 
             }
@@ -84,47 +89,57 @@ for (const button of buyButtons) {
        
     })
 }
+
+function RemoveButtonsEvent(id) {
+    
+    const removeButton = document.getElementById(id)
+    if (removeButton != null){
+        removeButton.addEventListener("click", ()=>{
+            const badge = removeButton.previousSibling
+            const item = removeButton.parentElement
+            if (parseInt(badge.innerText) == 1) {
+                cart.removeChild(item)
+                cartArr = cartArr.filter((p)=>p != item.id)
+                if (cartArr.length == 0) {
+                    Empty();
+                }
+                return
+            }
+            
+            else{
+                badgeNumb = parseInt(badge.innerText)
+                badgeNumb -= 1
+                badge.innerText = badgeNumb
+                return
+            }
+        })
+    }
+}
+
 const canvas = document.getElementById("offcanvas")
 const bsCanvas = new bootstrap.Offcanvas(canvas)
 
 
 shoppingCart.addEventListener("click", ()=>{
-    bsCanvas.show()
-    
+    bsCanvas.show();
     
     if (shoppingCart.firstElementChild != null) {
         shoppingCart.removeChild(shoppingCart.firstElementChild)
         
     }
-    if (cart.childElementCount == 0 && canvasBody.childElementCount == 1) {
-        const tom = document.createElement("p")
-        tom.id = "tom"
-        tom.innerText = "Ooooh nej den är tom!"
-        canvasBody.appendChild(tom)
+    if (cart.childElementCount == 0 && canvasBody.lastElementChild.id != "tom") {
+        Empty();
     }
-    else{
-
+    if (cart.childElementCount > 0 && canvasBody.lastElementChild.id == "tom"){
+        canvasBody.removeChild(tom)
     }
 })
 
-function Remove(id) {
-    const removeButton = document.getElementById(id)
-    removeButton.addEventListener("click", ()=>{
-        const badge = removeButton.previousSibling
-        const item = removeButton.parentElement
-        if (parseInt(badge.innerText) == 1) {
-            cart.removeChild(item)
-            cartArr = cartArr.filter((p)=>p != item.id)
-            return
-        }
-        
-        else{
-            badgeNumb = parseInt(badge.innerText)
-            badgeNumb -= 1
-            badge.innerText = badgeNumb
-            return
-        }
-    })
+function Empty() {
+    const tom = document.createElement("p")
+        tom.id = "tom"
+        tom.innerText = "Ooooh nej, din varukorg är tom!"
+        canvasBody.appendChild(tom)
 }
 
 
@@ -133,7 +148,9 @@ function Remove(id) {
 const infoButtons = document.getElementsByClassName("info");
 const infoModal = new bootstrap.Modal("#modalModel")
 const modalTitle = document.getElementsByClassName("modal-title")[0]
+modalTitle.classList.add("sofia-sans")
 const modalBody = document.getElementsByClassName("modal-body")[0]
+modalBody.classList.add("sofia-sans")
 
 for (const button of infoButtons) {
     button.addEventListener("click", ()=>{
@@ -160,21 +177,43 @@ for (const button of infoButtons) {
     
 }
 
+function getProducts() {
+    const productDiv = document.getElementById("product-div")
+for (const item of itemsArr) {
+    const colDiv = document.createElement("div")
+    colDiv.classList.add("col-2", "pt-5")
+    const cardDiv = document.createElement("div")
+    cardDiv.classList.add("card", "product-card", "text-light")
+    const cardHeader = document.createElement("div")
+    cardHeader.classList.add("card-header", "sofia-sans")
+    cardHeader.innerText = item.name
+    const cardImg = document.createElement("img")
+    cardImg.src = item.img
+    cardImg.alt = item.description
+    const cardBody = document.createElement("div")
+    cardBody.classList.add("card-body", "sofia-sans")
+    const cardBodyText = document.createElement("p")
+    cardBodyText.classList.add("card-text")
+    cardBodyText.innerHTML = `${item.description} <br> ${item.price} kr`
+    const cardInfo = document.createElement("a")
+    cardInfo.classList.add("btn", "btn-primary", "info", "d-inline-flex", "m-1")
+    cardInfo.innerText = "Innehåll"
+    const cardBuy = document.createElement("a")
+    cardBuy.classList.add("btn", "btn-primary", "buy", "d-inline-flex", "m-1")
+    cardBuy.innerText = "Köp"
+
+    productDiv.appendChild(colDiv)
+    colDiv.appendChild(cardDiv)
+    cardDiv.appendChild(cardHeader)
+    cardDiv.appendChild(cardImg)
+    cardDiv.appendChild(cardBody)
+    cardBody.appendChild(cardBodyText)
+    cardBody.appendChild(cardInfo)
+    cardBody.appendChild(cardBuy)
+
+    
+}
+}
 
 
 
-// buy.addEventListener("click", ()=>{
-
-//     const li = document.createElement("li")
-//     const item = document.createElement("p")
-//     item.innerText = "Kremla 1x"
-//     li.appendChild(item)
-//     cart.appendChild(li)
-// })
-
-//detta bör optimeseras, istället för att ha en buy för varje, så har man en buy för allt.
-//funktionen ska leta sig upp och se vilken produkt har blivit tryckt.
-//därefter ska den läggas till i carten
-//innan detta så ska funktionen samt se ifall produkten redan finns i carten. ifall de finns ska det läggas till +1. om inte så skapas en ny list item.
-//detta är rätt enkelt, man skapar bara en tom array som heter cart. är carten tom så finns ingen produkt och list item kan läggas. om det finns en av samma produkt ska den göra +1.
-//rätt enkelt med ett lamba uttryck.

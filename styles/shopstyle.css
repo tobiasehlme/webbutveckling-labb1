@@ -45,15 +45,15 @@
 }
 .remove{
     background-image: url(../assets/remove.png);
-    background-size: cover;
     background-color: transparent;
-    height: 15px;
-    width: 15px;
+    height: 25px;
+    width: 25px;
     border: none;
 }
 .list-group-item{
     background-color: #B7B7A4;
     border-color: transparent;
+    
 }
 .cart{
     border-radius: 25px;
@@ -64,4 +64,31 @@
 }
 #shopping-cart{
     cursor: pointer;
+}
+
+.sofia-sans{
+    font-family: "Sofia Sans Condensed", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 350;
+    font-style: normal;
+    font-size: 20px;
+}
+
+.material-symbols-rounded {
+    font-size: 16px !important;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+}
+
+.material-symbols-outlined {
+    font-size: 16px !important;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+  
 }
