@@ -1,5 +1,7 @@
 const cart = document.getElementsByClassName("cart")[0]
 let cartArr = [];
+const shoppingCart = document.getElementById("shopping-cart")
+const canvasBody = document.getElementsByClassName("offcanvas-body")[0]
 badQuotes();
 
 
@@ -44,11 +46,16 @@ for (const button of buyButtons) {
     button.addEventListener("click", ()=>{
         let bread = button.parentElement;
         bread = bread.innerText
+        const pling = document.createElement("span")
+        pling.classList.add("position-absolute", "top-0", "start-100", "translate-middle", "p-2", "bg-danger", "border", "border-light", "rounded-circle")
+        if (shoppingCart.childElementCount == 0) {
+            shoppingCart.appendChild(pling)
+        }
         for (const item of itemsArr) {
             if(bread.includes(item.description)){
                 if (cartArr.includes(item.name)) {
                     const badgeElement = document.getElementById(`${item.name}-badge`)
-                    badgeNumb = parseInt(badgeElement.innerText)
+                    let badgeNumb = parseInt(badgeElement.innerHTML)
                     badgeNumb += 1
                     badgeElement.innerText = badgeNumb
                     return
@@ -68,13 +75,37 @@ for (const button of buyButtons) {
                 li.appendChild(removeButton)
                 cart.appendChild(li)
                 cartArr.push(item.name)
+                canvasBody.removeChild(document.getElementById("tom"))
                 Remove(removeButton.id)
+                
+                
             }
         }
        
     })
 }
+const canvas = document.getElementById("offcanvas")
+const bsCanvas = new bootstrap.Offcanvas(canvas)
 
+
+shoppingCart.addEventListener("click", ()=>{
+    bsCanvas.show()
+    
+    
+    if (shoppingCart.firstElementChild != null) {
+        shoppingCart.removeChild(shoppingCart.firstElementChild)
+        
+    }
+    if (cart.childElementCount == 0 && canvasBody.childElementCount == 1) {
+        const tom = document.createElement("p")
+        tom.id = "tom"
+        tom.innerText = "Ooooh nej den är tom!"
+        canvasBody.appendChild(tom)
+    }
+    else{
+
+    }
+})
 
 function Remove(id) {
     const removeButton = document.getElementById(id)
@@ -86,6 +117,7 @@ function Remove(id) {
             cartArr = cartArr.filter((p)=>p != item.id)
             return
         }
+        
         else{
             badgeNumb = parseInt(badge.innerText)
             badgeNumb -= 1

@@ -22,7 +22,12 @@
 }
 .cart-block-prop{
     width: 300px;
-    height: auto;
+    height: 30px;
+    border-radius: 25px;
+}
+.board-prop{
+    width: 60px;
+    height: 45px;
     border-radius: 25px;
 }
 .product-card{
@@ -53,6 +58,10 @@
 .cart{
     border-radius: 25px;
 }
-.overlay{
-    position: absolute;
+.material-icons.md-36 { font-size: 36px; }
+.offcanvas-header{
+    align-items: center;
+}
+#shopping-cart{
+    cursor: pointer;
 }
